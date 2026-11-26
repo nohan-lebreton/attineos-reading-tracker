@@ -1,0 +1,9 @@
+framework:
+    http_client:
+        scoped_clients:
+            gutendex.client:
+                base_uri: '%env(GUTENDEX_BASE_URL)%'
+                timeout: 5
+                max_duration: 10
+                headers:
+                    Accept: 'application/json'
