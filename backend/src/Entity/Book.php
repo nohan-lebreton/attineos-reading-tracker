@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\BookRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -14,20 +15,25 @@ class Book
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['reading'])]
     #[ORM\Column(unique: true)]
     private int $gutendexId;
 
+    #[Groups(['reading'])]
     #[ORM\Column(type: Types::TEXT)]
     private string $title;
 
     /** @var list<string> */
+    #[Groups(['reading'])]
     #[ORM\Column(type: Types::JSON, options: ['jsonb' => true])]
     private array $authors = [];
 
+    #[Groups(['reading'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $coverUrl = null;
 
     /** @var list<string> */
+    #[Groups(['reading'])]
     #[ORM\Column(type: Types::JSON, options: ['jsonb' => true])]
     private array $languages = [];
 

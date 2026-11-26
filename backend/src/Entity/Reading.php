@@ -6,6 +6,9 @@ use App\Enum\ReadingStatus;
 use App\Repository\ReadingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 #[ORM\Entity(repositoryClass: ReadingRepository::class)]
 #[ORM\UniqueConstraint(name: 'uniq_reading_user_book', fields: ['user', 'book'])]
@@ -13,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Reading
 {
+    #[Groups(['reading'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -22,28 +26,38 @@ class Reading
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private User $user;
 
+    #[Groups(['reading'])]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private Book $book;
 
+    #[Groups(['reading'])]
     #[ORM\Column(length: 20, enumType: ReadingStatus::class)]
     private ReadingStatus $status;
 
+    #[Groups(['reading'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $startedAt = null;
 
+    #[Groups(['reading'])]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'Y-m-d'])]
     #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $finishedAt = null;
 
+    #[Groups(['reading'])]
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $rating = null;
 
+    #[Groups(['reading'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
 
+    #[Groups(['reading'])]
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
+    #[Groups(['reading'])]
     #[ORM\Column]
     private \DateTimeImmutable $updatedAt;
 
