@@ -138,6 +138,7 @@ frontend/src/
 - Pagination et tri de « Mes lectures »
 - Stockage des couvertures côté back
 - Traduction des messages de validation
+- Conteneurisation de PHP et Node pour un lancement en une seule commande
 
 ## Problèmes fréquents
 
